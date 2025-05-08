@@ -1,0 +1,840 @@
+%%% DOCUMENT TYPE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[8pt, a4paper, landscape]{extarticle}
+
+%%% SETUP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[nodisplayskipstretch]{setspace} % vertical empty spaces
+\usepackage[arrow, matrix, curve]{xy}       % fancy vectors
+\usepackage[dvipsnames]{xcolor}             % fancy colors
+\usepackage[document]{ragged2e}             % text alignment
+\usepackage{geometry}   % page formatting
+\usepackage{ulem}       % better enviroment definition
+\usepackage[b]{esvect}  % nicer vectors
+\usepackage{multicol}   % mutiple colums
+\usepackage{physics}    % physics package
+\usepackage{amsmath}    % math tools
+\usepackage{amssymb}    % math symbols
+\usepackage{amsthm}     % thereoms
+\usepackage{mathtools}  % math tools
+\usepackage{relsize}    % resize stuff
+\usepackage{nameref}    % Referencing
+\usepackage{hyperref}   % "
+\usepackage{cleveref}   % "
+\usepackage{environ}    % interface for enviroments
+\usepackage{xcolor}     % nicer colors
+\usepackage{tikz-cd}    % eckige Schrift
+\usepackage{MnSymbol}   % isometrie symbol
+\usepackage{wasysym}    % isometrie symbol
+\usepackage{bbm}        % Identitäts Symbol
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+%%% STYLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{a4paper, left=7mm, right=7mm, top=-7mm, bottom=7mm, includehead, landscape}
+\setlength{\columnsep}{3mm}
+
+%%% Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% formatting and operators
+\DeclareMathOperator{\rot}{rot}
+\renewcommand{\Vec}[1]{\vv{#1}}
+\newcommand*{\vecthree}[3]{\begin{pmatrix} #1 \\ #2 \\ #3 \end{pmatrix}}
+\newcommand*{\vecfour}[4]{\begin{pmatrix} #1 \\ #2 \\ #3 \\ #4 \end{pmatrix}}
+\newcommand{\tit}[1]{\textbf{#1} \\}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand\ffbox{\fcolorbox{red}{white}}
+\newcommand{\dVec}[1]{\dot{\vv{#1}}}
+\newcommand{\ddVec}[1]{\ddot{\vv{#1}}}
+\newcommand{\sh}[1]{\small\textbf{#1}}
+\newcommand{\eq}{\negthickspace=\negthickspace}
+
+% text styling
+\newcommand{\hi}[1]{\textcolor{Cerulean}{#1}}
+\newcommand{\pu}[1]{\textcolor{purple}{#1}}
+\newcommand{\green}[1]{\textcolor{teal}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\re}[1]{\textcolor{red}{#1}}
+\newcommand{\eck}[1]{\mathfrak{#1}}
+
+
+
+% enviroments
+\renewenvironment{equation}
+{\vspace{-3mm}\begin{equation*}}
+{\end{equation*}}
+
+\NewEnviron{ibox}{
+    
+    \fbox{
+        \begin{minipage}{\linewidth - 3mm}
+            \BODY
+        \end{minipage}
+    }
+}
+
+
+\NewEnviron{cbox}{
+    \vspace{-3.0px}
+    \begin{tcolorbox}[colback=red!30,% background
+                  colframe=red,%  frame colour
+                  width=\linewidth,
+                  boxsep=-1px,
+                  arc=1mm, auto outer arc,
+                 ]
+        \begin{minipage}{\linewidth}
+        \centering
+        \BODY
+        \end{minipage}
+    \end{tcolorbox}
+    \vspace{-7.0px}
+}
+
+%%% DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{multicols*}{5}
+
+\begin{cbox}
+    \sh{Gruppen}
+\end{cbox}
+
+\begin{ibox}
+    \tit{Gruppen}
+    $(gh)k=g(hk), \quad \exists 1, \quad \forall g \exists g^{-1}$\\
+    $\cdot$ Ordnung = \#Elemente\\
+    $\cdot$ abelsch = kommutativ\\
+    $\cdot$ Untergruppe $\emptyset \neq H \subseteq G$ falls $\forall h,\Tilde{h}: h\Tilde{h}\in H$
+\end{ibox}
+
+\begin{ibox}
+    \tit{Beispiele Von Gruppen}
+    \textcolor{blue}{endlich}, \textcolor{purple}{Lie Gruppe}\\
+    \bl{Zyklische Gruppe} $|\mathbb{Z}_n| = n$ (abelsch)\\
+    \bl{Symmetrische Gruppe} $\abs{S_n}=n!$\\
+    \bl{Dieder}(nur 1/2 dim irreps)$\abs{D_n}=2n, \{1,R,.,R^{n-1},S,SR,.,SR^{n-1}\}$\\
+    \green{($\rho$ eind. durch $\rho(R), \rho(S)$def)}\\
+    \pu{Allg.lin. Gruppe} $GL(n,\mathbb{R}/\mathbb{C})$\\
+    \pu{Spez.lin. Gruppe}
+    $SL(n,\mathbb{K})=\{A\in GL(n,\mathbb{K}|detA=1)\}$\\
+    \pu{Orthogonale Gruppe}
+    $O(n)=\{A\in GL(n)\mathbb{R}|A^T=A^{-1}\}$\\
+    \pu{Spez. Orthogonale Gruppe}
+    $SO(n)=\{A\in O(n)|detA=1\}$\\
+    \pu{Unitäre Gruppe} $U(n)=\{A\in GL(n,\mathbb{C})|A^*=A^{-1}\}$ (U(1) abelsch)\\
+    \pu{Spez. Unitäre Gruppe}
+    $SU(n)=\{A\in U(n)| detA=1\}$\\
+    \pu{Symplekt. Gruppe}
+    $Sp(2n)=\{A$$\in$$GL(2n,K)| A^TJA$=$J\}$,J=\tiny{$(\begin{smallmatrix}
+    0 & -\mathbbm{1}\\
+    \mathbbm{1} & 0
+    \end{smallmatrix})$}
+\end{ibox}
+
+\begin{ibox}
+    \tit{Bahnensatz}
+    \textbf{Bahn} von x:  $Gx=\{gx|g\in G\}$
+    \textbf{Stabilisator}: \\$Stab_x=\{g\in G|gx=x\}$\\
+    \textbf{Bahnensatz}: $\abs{G}=\abs{Stab_x}\abs{Gx}$
+\end{ibox}
+\begin{ibox}
+    \tit{Definitionen}
+    \hi{Linksnebenklassen:} einer G von einer UG H: gH=$\{gh|h\in H\}$\\
+    \hi{Normalteiler:} H, falls $\forall g\forall h: ghg^{-1}\in H$\\  
+    \hi{Direktes Prod.} $(g_1,h_1)(g_2,h_2)=(g_1g_2,h_1h_2)$\\
+    \hi{Konjugationsklassen:} $[g]=\{hgh^{-1}|h\in G\}$ \\
+    \hi{Gruppen/Links -wirkung:} $ G \cross X \rightarrow X: (g,x) \rightarrow gx$\\
+    $(1,x) = x, \; (g_1, (g_2, x)) = (g_1 g_2) x$\\
+    
+\hi{Erster Isomorphiesatz:} f ist Gruppenhomom. f:G$\rightarrow$G' dann $im f \simeq \frac{G}{ker f}$
+    
+\end{ibox}
+
+
+
+
+
+
+
+\begin{cbox}
+    \sh{Darstellungen}
+\end{cbox}
+\begin{ibox}
+    \tit{Darstellungen}
+    $\rho: G \rightarrow GL(V) = (\rho,V)$\\
+    $\cdot$ Homomorph. $\rho(gh)=\rho(g)\rho(h)$\\
+    $\cdot$ $dim(\rho)=dim(V)$\\
+    \hi{triviale Darstellung}:\\
+    $V=\mathbb{C}\quad\forall g\in G: \rho(g)=1$\\
+    
+\end{ibox}
+
+\begin{ibox}
+    \tit{reguläre Darstellung}
+    \textbullet $(\rho_{reg}(g)f)(h)=f(g^{-1}h),\hfill f:G\rightarrow\mathbb{C}$\\
+    Für endliche Gruppen:\\
+    \textbullet $\rho_{reg}$ enthält alle Irreps\\
+    \textbullet $\abs{G}\geq2 \Rightarrow \rho_{reg}$ \textbf{nicht} irrep\\
+    \textbullet \hi{Dimension} $\rho_{reg}=\abs{G}$\\
+    \textbullet $\chi_{\rho_{reg}}(1\in G)=\abs{G}$\\
+    \textbullet $\chi_{\rho_{reg}}(g\in G/\{1\})=0$
+\end{ibox}
+
+
+\begin{ibox}
+    \tit{Duale darstellung}
+    $\rho^*_g(\Phi)=\Phi\circ\rho(g^{-1})$\\
+    wichtige Eigenschaften:\\
+    \textbullet $\rho^*(g)=((\rho(g))^{-1})^T$\\
+    \textbullet $\rho$ unitär $\Rightarrow \rho^*=\overline{\rho}$
+\end{ibox}
+
+
+\begin{ibox}
+    \tit{Irreduzibilität}
+    Def: nur V und \{0\} invar. UR\\
+    \hi{vollst. reduzibel}: $V = V_1 \oplus \cdots\oplus V_n$ mit $(\rho|_{V_i},V_i)$ irrep\\
+    \textbullet G ist endlich $\Leftrightarrow$ $\rho$ ist \hi{unitär} $\Leftrightarrow <\rho(U)A_1,\rho(U)A_2>=<A_1,A_2>$\\
+    \textbullet $\rho$ unitär $\Rightarrow \rho(g^{-1})=\rho(g)^*$\\
+    $\re{!} \rho$ unitär $\Rightarrow\rho$ vollst. reduzibel
+\end{ibox}
+\begin{ibox}
+\tit{G-äquivariante Darstellungen}
+Hom$_G(V_1,V_2)=\{\phi:V_1\rightarrow V_2 \text{ linear, sd}\\ (\phi\circ\rho_1(g))(v_1)\eq(\rho_2(g)\circ\phi)(v_1)\forall g\in G\}$
+\end{ibox}
+\begin{ibox}
+    \tit{Schur: $(\rho_1,V_1) (\rho_2,V_2) $irreps}
+    $Hom_G(V_1,V_2) =\{lineare, \varphi: V_1 \rightarrow V_2 \mid \varphi  \rho_1(g)=\rho_2(g)\varphi\}$ \\
+    (1) $\varphi\in Hom_G(V_1,V_2)\\ \Rightarrow \varphi = 0$ oder $ \varphi =$ Isomorphismus\\
+    $\rho_1$ irrep $\rightarrow \varphi$ injektiv\\
+    $\rho_2$ irrep $\rightarrow \varphi$ surjektiv\\
+    (2) $\varphi\in Hom_G(V_1,V_1) \Rightarrow \varphi = \lambda \mathbbm{1}$
+    \\
+    \hi{Kor:} endl.-dim. kompl. Darst. abelscher Gruppe sind 1-dim.
+\end{ibox}   
+
+
+
+
+
+
+
+\begin{cbox}
+    \sh{Charakter}
+\end{cbox}
+
+\begin{ibox}
+    \tit{Skalarprodukt Charaktere}
+    $(\chi_1,\chi_2)=\frac{1}{\abs{G}}\sum_g \overline{\chi_1(g)}\chi_2(g)$
+    ggf. Anzahl Elemente der konj.kl. mit multiplizieren
+\end{ibox}
+
+\begin{ibox}
+    \tit{Charakter}
+    $\chi_\rho(g)=tr(\rho(g))$\\
+    \textbf{Rechenregeln}:\\
+    \textbullet $\chi(g)=\chi(hgh^{-1})$ const Konj.kl.
+    \textbullet $\chi_\rho(1)= dim(V)$\\
+    \textbullet $\chi_{\rho \oplus \rho'} = \chi_\rho + \chi_{\rho'}$\\
+    \textbullet $\chi_\rho(g^{-1})= \overline{\chi_{\rho}(g)}$ G endl$\Rightarrow\rho $ unit\\
+    \textbullet $\chi_{\rho\otimes\rho'}= \chi_\rho \cdot \chi_{\rho'}$\\
+    \textbf{für 1dim Darstellungen $\rho$}:
+    $\chi_\rho^n([g])=1$; n=Ordnung Konj.kl.
+\end{ibox}
+\begin{ibox}
+    \tit{Orthogonalität ($\rho,\rho'$ irreps)}
+    $\rho \nsimeq \rho' \Leftrightarrow (\chi_\rho,\chi_{\rho'})$=0$\Leftrightarrow (\rho,\rho')$=0\\
+    $\rho \simeq \rho' \Leftrightarrow (\chi_\rho,\chi_{\rho'})=1 $;$\Rightarrow \chi_\rho = \chi_{\rho'}$\\\\
+    \textbullet $\exists g$ sd. $\chi_\rho(g)\neq \chi_{\rho'} \Rightarrow \rho \nsimeq \rho'$\\
+    \textbullet Falls $\rho,\rho'$ keine irreps, gilt: $(\chi_\rho,\chi_{\rho'})$=\# äquival. unt.irreps
+    \textbullet $(\chi_\rho,\chi_\rho)=k\Rightarrow$ $\rho$ hat genau k irreduzible Unterdarstellungen\\
+    \textbullet \hi{Vielfachheiten}  Unter-irreps $\rho_i$ von $\rho$: $(\chi_\rho,\chi_{\rho_i})$
+\end{ibox}
+
+
+\begin{ibox}
+    \tit{Charaktertafel}
+    1. \#Irreps = \#Konj.kl.\\
+    2. $\chi_{\rho triv}(g)=1 \forall g\in G$\\
+    3. \hi{Dimensionsformel} $\sum d_i^2 = \abs{G}$
+    4. zusätzliche $\rho$ 1dim $\chi_\rho(g)^n = 1$\\
+    5. hat $\chi_i$ kplx. Einträge dann muss $\overline{\chi_i}$ vorkommen! \hi{duale darst. einer irred. darst. ist irred.}
+    6. falls $\exists$1-dim irrep $\rho_i$, dann $\rho_i\otimes\rho_j$ irrep.
+    7. Ortho Zeilen(1) \& Spalten(2):\\ (1)$\frac{1}{\abs{G}}\sum_{k=1}^m\abs{c_k} \overline{\chi_i(c_k)}\chi_j(c_k)= \delta_{ij}$\\
+    (2)$\frac{\sqrt{\abs{c_i}\abs{c_j}}}{\abs{G}}\sum_{k=1}^m \overline{\chi_k(c_i)}\chi_k(c_j)= \delta_{ij}$\\
+    (Lineare GLS lösen)\\
+    \textbf{Char.tafel aus Isomorph.}
+    \includegraphics[width = 1\linewidth]{images/Char_tafel.png}
+    (Charaktertafeln \textit{multiplizieren}. \re{Wichtig}: Wenn $C_i$ die Konjkl. von G und $D_j$ Konjkl. von H dann sind $C_i$x$D_j$ die Konjkl. von GxH )
+\end{ibox}
+\begin{ibox}
+\tit{n-te komplexe Wurzel}
+$z^n\eq ae^{i\alpha}\rightsquigarrow z_k\eq\sqrt[n]{a}\cdot \text{exp}(i{\frac{\alpha+2\pi k}{n}})$
+\end{ibox}
+
+\begin{cbox}
+    \sh{Details explizite Gruppen}
+\end{cbox}
+\begin{ibox}
+    \tit{Symmetrische Gruppe $S_3$}
+    Irreps: \textbullet 1dim triviale $\rho_1$\\
+    \textbullet 2dim $\rho_2$ auf $V_2=\{x\in \mathbbm{C}^3|x_1+x_2+x_3=0\}$, Permutation der Koordinaten\\
+    \textbullet (nur für n$>$1) 1dim Signum $\rho_\varepsilon$ mit $sign(\sigma)=(-1)^{N}$ wobei N=\#Kreuze in Permutation, $sign(\sigma\tau)=sign(\sigma)sign(\tau)$\\
+    \hi{Charaktertafel von $S_3$}\\
+    
+    \resizebox{0.5\linewidth}{!}{
+        \begin{tabular}{c | c c c}
+        6 $S_3$ & [1] & 3[s] & 2[t]  \\
+        \hline
+        $\chi_1$ & 1 & 1 & 1\\
+        $\chi_2$ & 2 & 0 & -1\\
+        $\chi_\varepsilon$ & 1 & -1 & 1
+        \end{tabular}
+    }
+    \begin{minipage}{0.45\linewidth}
+        \smaller{s=(1 2),t=(1 2 3)\\
+        $\Rightarrow S_3$=$\{1,s,tst^{-1},$ $t^2st^{-2},t,sts^{-1}\}$ }
+        
+    \end{minipage}
+    \hi{Fixpunktsatz:}\\
+    $\chi_\rho(g)=\#Fixp * tr(R)$
+    
+\end{ibox}
+\begin{ibox}
+    \tit{Orthogonale Gruppe O}
+    \textbullet nicht zusammenhängend, aber kompakt
+    \textbullet $\hi{Dim} O(n)=\eck{o}(n)=n(n-1)/2$\\
+    \textbullet $O\simeq O^+ \times \mathbb{Z}_2$; $O^+ \simeq S_4$
+    Expliziter Isomorphismus:\\
+    $\Phi: O^+\times \mathbb{Z}_2 \rightarrow O| (g,\pm 1) \mapsto \pm \mathbbm{1}g$\\
+    $\Psi: O\rightarrow O^+\times\mathbb{Z}_2| g\mapsto (det(g)g,det(g))$\\
+    $\Rightarrow \Phi\circ\Psi=\Psi\circ\Phi=1\Rightarrow \Phi Isom.$
+\end{ibox}
+\begin{ibox}
+\tit{Zyklische Gruppen $Z/Z_n$}
+Falls $G_n = \{1,g,...,g^{n-1}\}$$\Rightarrow \chi_k(g^j) = e^{\pi i (2kj/n) }$ . ($e^{\pi i}=-1)$ \\
+Sei $v=\sum_i v_i e_i$  Eigenvektor $\rho(g)v = \lambda v $.Dann:
+$\lambda \sum_i v_i e_i=\rho(g) v=\sum_i v_i e_{i+1} \bmod n
+bzw:v_{i-1} \bmod n=\lambda v_i$\\
+$\rightarrow$ $v_i=\lambda^{-i+1} v_1$ und $\lambda^n=1$.\\
+Eigenwerte: $\lambda_j=e^{\frac{2 \pi i j}{n}}, j \in\{1 . . n\}$
+Eigenvektoren : $u_j=\left(1, \lambda_j^{-1}, \lambda_j^{-2}, \ldots, \lambda_j^{-(n-1)}\right), j \in\{1 . . n\}$ .\\
+Zerlegung in irreps: $\mathbb{C}^n=\bigoplus_{j=1}^n \mathbb{C} u_j$
+\end{ibox}
+
+   
+   
+
+
+\begin{cbox}
+    \sh{Kanonische Zerlegung}
+\end{cbox}
+\begin{ibox}
+    $(\rho,V)$ Darst., $V=\oplus_iU_i$, wo $\rho_{U_i}$ irreps ($\rho_{U_i}$ könnten äqui. sein)
+    Sei $\{(\rho_j,V_j)\}_{j=1}^n$ Liste \pu{aller} irreps. fasse äqui. irreps zus. in $W_i=\oplus_{\rho|U_j\simeq\rho_i}U_j$\\
+    \hi{Kanonische Zerl:}$V=W_1\oplus...\oplus W_n$
+    \hi{Projektion} $p_i:V\rightarrow W_i$
+    $p_i(v)=\frac{dimV_i}{|G|}\sum_{g\in G}\overline{\chi_i(g)}\rho(g)v$
+\end{ibox}
+
+
+
+
+
+\begin{cbox}
+    \sh{Eigenwertprobleme}
+\end{cbox}
+
+\begin{ibox}
+    \tit{Eigenwerte}
+    $A\in Hom_g(V,V)$, $\rho:G\rightarrow GL(V)$\\
+    \textbullet falls $\rho$ irrep $\xRightarrow{\text{Schur}} A=\lambda \mathbbm{1}$\\
+    \textbullet max $\#$ versch. EW von A$\in$ $Hom_g(V,V)$.  wenn A mit $\rho$ kommutiert = $\sum_{uirreps}Vielfachheiten(uirreps)$\\
+    Multip der EW=Dim der uirrep
+\end{ibox}
+
+\begin{cbox}
+    \sh{Dreh- $\&$ Lorentzgruppe}
+\end{cbox}
+
+\begin{ibox}
+    \tit{Euler Winkel}
+    $\forall R\in SO(3) \exists\varphi\in[0,2\pi[,\theta\in[0,\pi],\Psi\in[0,2\pi[$ sodass $R=R_3(\varphi)R_1(\Theta)R_3(\Psi)$ 
+\end{ibox}
+
+\begin{ibox}
+    \tit{Drehgruppe SO(3)}
+    Dreh um $\Vec{n}$, Winkel $\Theta$\\
+    \textbullet $R(\Vec{n}$,$\Theta)\Vec{x}=(\Vec{x}\cdot \Vec{n})\Vec{n}$ + $[\Vec{x}-(\Vec{x}\cdot \Vec{n})\Vec{n}]cos(\Theta) + \Vec{n}\times x \sin(\Theta)$\\
+\end{ibox}
+
+\begin{ibox}
+    \tit{Lorentztransformationen}
+    $O(1,3)=$ disjunkte Vereinigung von:
+    $\{\mathbbm{1}, P, T, PT\}\cdot SO_+(1,3)$ \\
+    $SO_+(1,3)$ ist wegzush.
+\end{ibox}
+\begin{ibox}
+    \tit{SU(2)}
+    $SU(2)=\{\big(\begin{smallmatrix}
+    \alpha & \beta\\
+    -\overline{\beta} & \overline{\alpha}
+    \end{smallmatrix}\big)| \abs{\alpha}^2 + \abs{\beta}^2=1\}$ \\
+    $H_0 = \{A\in Mat(2x2)|A^T=\overline{A}, Tr(A)=0\} \Rightarrow dimH_0=3$\\
+    $\hat{x}=\big(\begin{smallmatrix}
+    z & x-iy\\
+    x+iy & -z \end{smallmatrix}\big)$\\
+    \hi{Basis Pauli Mat}: (es gilt $\sigma_i^2 = 1$)
+    $\sigma_1=\big(\begin{smallmatrix}
+    0 & 1\\
+    1 & 0
+    \end{smallmatrix}\big)
+    \sigma_2=\big(\begin{smallmatrix}
+    0 & i\\
+    -i & 0
+    \end{smallmatrix}\big)
+    \sigma_3=\big(\begin{smallmatrix}
+    1 & 0\\
+    0 & -1 \end{smallmatrix}\big)$
+    Skalarprod. $(x,y)=\frac{1}{2}tr(X\cdot Y)$\\
+    \textbullet
+     $\sigma_a\sigma_b\eq\delta_{ab}\thinspace+\thinspace i\epsilon_{abc}\sigma_c\\
+     \Rightarrow \sigma_k\sigma_j\sigma_k = $\small\begin{cases}
+    $\sigma_j$, $k = j$\\
+    $-\sigma_j$, $k\neq j$
+    \end{cases}\\
+    \textbullet $[\sigma_i,\sigma_j]\eq2i\varepsilon_{ijk}\sigma_k$\\
+\end{ibox}
+
+
+\begin{ibox}
+    \tit{Rotationsmatritzen}
+    $R_{x}=\big(\begin{smallmatrix}
+        \cos \varphi & -\sin \varphi \\
+        \sin \varphi & \cos \varphi 
+    \end{smallmatrix}\big)$(Zeile 2 u. 3)\\
+    $R_{y}=\big(\begin{smallmatrix}
+        \cos \varphi & \sin \varphi\\
+        -\sin \varphi & \cos \varphi 
+    \end{smallmatrix}\big)$(Zeile 1 u. 3)\\
+    $R_{z} = \big(\begin{smallmatrix}
+        \cos \varphi & -\sin \varphi\\
+        \sin \varphi & \cos \varphi\\
+    \end{smallmatrix}\big)$(Zeile 1 u. 2)\\
+    \textit{Id} im Rest
+\end{ibox}
+
+\begin{cbox}
+    \sh{Isom. $SU(2)\&SL(2)$}
+\end{cbox}
+
+\begin{ibox}
+   \tit{Isom. $SU(2)/\{\pm \mathbbm{1}\}\simeq SO(3)$} 
+   Darstellung $\varphi:SU(2)\rightarrow O(H_0)$
+   $\varphi(A):H_0 \rightarrow H_0$, 
+   $\varphi(A)X=AXA^*$\\
+   mit $H_0 \simeq O(3)$ $\&$ $SU(2)$ zush.: \\ $\varphi':SU(2)\rightarrow SO(3)$ mit  
+   $\widehat{\varphi'(A)x}=A\hat{x}A^*=\varphi(A)\hat{x}$\\
+   $\varphi$ surj. mit Ker $=\{\pm\mathbbm{1}\}$ gibt Iso.
+   \\
+   $\varphi(\cos(\frac{\theta}{2})\mathbbm{1}-i\sin(\frac{\theta}{2})\vec n\cdot\vec \sigma) = R(\vec n, \theta)$
+\end{ibox}
+
+\begin{ibox}
+    \tit{Isom.$SL(2,\mathbb{C})/\{\pm \mathbbm{1}\}\simeq SO_+(1,3)$}
+    $H=\{X\in M_{2\times2}(\mathbb{C})|X = X^*.\}$\\
+    $\hat{x}=\big(\begin{smallmatrix}
+    x^0+x^3 & x^1-ix^2\\
+    x^1+ix^2 & x^0-x^3
+    \end{smallmatrix}\big)=x^0id + \small\sum x_j\sigma_j$\\
+    \pu{wieder:} $\phi: SL(2,\mathbb{C})\rightarrow GL(H)$, $\phi(A)X=AXA^*$ mit $H\simeq \mathbb{R}^4$ und $SL(2,\mathbb{C})$ wegzush: $\phi':SL(2,\mathbb{C})\rightarrow SO_+(1,3)$ mit $\widehat{\phi'(A)x}=A\hat{x}A^*=\phi(A)\hat{x}$ surj. mit Ker $=\{\pm\mathbbm{1}\}$\\
+    \pu{Bem:}$SO_+(1,3)$ wegzush., $\mathbbm{1}\negthickspace\in\negthickspace SO_+(1,3)$
+\end{ibox}
+
+
+
+
+
+
+\begin{cbox}
+    \sh{Liegruppen \& Liealgebra}
+\end{cbox}
+
+\begin{ibox}
+    \tit{Grundlagen Lie}
+    \hi{(Matrix-)Lie Gruppe}: abgeschlossene UG von $GL(n,K)$. Abgeschlossenheit zeigen: stetige Abbildung $A\mapsto$ Bedingung der zu prüfenden Gruppe $\Rightarrow$ Urbild der Umkehrabbildung betrachten\\
+    \hi{Einparametergruppe}: Abbildung $\mathbb{R}\rightarrow GL(n,K), t\mapsto X(t)$, stetig diffbar, $X(0)=id$, $X(s+t)=X(s)X(t)$\\
+    \textbullet Einparametergruppen von der Form $A(t)\eq e^{tX}, X\in Lie(G)$
+\end{ibox}
+\begin{ibox}
+    \tit{(Matrix-)Lie Algebra}
+    Def: $\eck{g}=Lie(G)= \{X\in Mat(n,K)| e(tX)\in G \forall t\in \mathbb{R}\}$\\
+    \textbullet VR mit Lieklammern und VR unter Lieklammer abgeschlossen
+    \textbullet Tangentialraum der Lie Gruppe\\
+    Vorgehen: $A=e(tX)$ in Bedingungen einsetzen $\Rightarrow \forall$Bedingungen B $\frac{dB(A)}{dt}|_{t=0}$\\
+    Gleichsetzen liefert $\eck{g}$ (Beide Richtungen zeigen!)
+    Rückrichtung: X wählen sd. vorher gefundene Bedingung erfüllt $\Rightarrow$ ZZ: $exp(tX)\in G$
+\end{ibox}
+\begin{ibox}
+    \tit{Campbell Baker Hausdorff}
+    $e(tX)e(tY)$=e(tX+tY+$\frac{t^2}{2}[X,Y]) $
+\end{ibox}
+\begin{ibox}
+    \tit{Lie Klammern}
+    Immer zu Zeigen: bilinear, Antisymmetrie, Jacobiidentität: Aus der Bilinearität folgt, dass Jacobiid. nur für Basiselemente gezeigt werden muss\\
+    \footnotesize{$[[X,Y],Z]+[[Z,X],Y]+[[Y,Z],X]=0$}
+\end{ibox}
+
+\begin{ibox}
+    \tit{Exponentialreihe\hfill $exp\cong e$}
+    Def: $exp(X)=\sum_{k=0}^\infty\frac{1}{k!}X^k$\\
+    \textbullet $e(X)e(Y)$=$e(X+Y), [X,Y]=0$\\
+    \textbullet$\exists (e(X))^{-1}\rightarrow(e(X))^{-1}=e(-X)$\\
+    \textbullet$Ae(X)A^{-1}=e(AXA^{-1})$\\
+    \textbullet $det(e(X))=e(tr(X))$\\
+    \textbullet $e(X)^*=e(X^*),e(X)^T=e(X^T)$\\
+    \textbullet $X^{n+1}=0\rightarrow e(X)=\sum_{k=0}^n\frac{1}{k!}X^k$\\
+    \textbullet $J_\lambda=\lambda\mathbbm{1} + N$,$[\lambda \mathbbm{1},N]=0 \Rightarrow$CBH\\
+    \textbullet $R\in SO(2)\Rightarrow R = exp \big(\begin{smallmatrix}
+    0 & -\Theta\\
+    \Theta & 0
+    \end{smallmatrix}\big)$
+    \textbullet blöcke auf der diagonalen können einzeln gemacht werden
+    \textbullet $exp(ia\sigma)=\mathbbm{1}cos(a)+i\sigma \sin{(a)}$
+\end{ibox}
+
+
+
+
+
+
+\begin{ibox}
+    \tit{Lie-Unteralgebra}
+    \textbullet Falls nichts anderes gegeben $\Rightarrow$ $[\cdot,\cdot]$=Kommutator\\
+    \textbullet Kommutator erfüllt Jacobiid. und Antisymmetrie automatisch\\
+    \textbullet Abgeschlossenheit der gegebenen Menge unter $[\cdot,\cdot]$ und dadurch ggbf. Bilinearität zeigen
+    \end{ibox}
+
+\begin{ibox}
+    \tit{Bsp Lie Algebren\hfill$Mat = M$}
+    \textbullet $\eck{gl}(n,\mathbb{K})=M(n,\mathbb{K})$\\
+    \textbullet $\eck{sl}(n,\mathbb{K})=\{X\in \eck{gl}|tr(X)=0\}$\\
+    \textbullet $\eck{u}(n)=\{X\in M(n,\mathbb{C})|X^*=-X\}$\\
+    \textbullet $\eck{su}(n)=\{X\in \eck{u}(n)|tr(X)=0\}$\\
+    \textbullet $\eck{o}(n)=\eck{so}(n)=\{X\in M(n,\mathbb{R})|X^T=-X\}$\\
+    \textbullet $\eck{sp}(2n)=\{X\in M(2n,\mathbb{R})|X^T J + JX = 0\}$, J = \tiny{$(\begin{smallmatrix}
+    0 & -\mathbbm{1}\\
+    \mathbbm{1} & 0
+    \end{smallmatrix})$}
+\end{ibox}
+
+
+
+\begin{cbox}
+    \sh{Darstellungen (Lie)}
+\end{cbox}
+
+\begin{ibox}
+    \tit{Lie-Darstellungstheorie}
+    Haarsch. Mass verallg. Darstellungen nur auf \hi{kompakten} Gruppen\\
+    Benutzen, um irreps der Lie G zu finden, mittels Lie Algebra auf Zsmh-komp. der Lie G
+    \textbf{Darstellungen Lie Algebren}\\
+   
+     $\tau:\eck{g}\rightarrow\eck{gl}(V)$ sd. I)$\tau(g) \in gl(V)$ \\
+     II) $[\tau(X),\tau(Y)]_\eck{gl}= \tau([X,Y]_\eck{g})$
+    Hom von Lie Algebren; Isom falls invertierbar
+\end{ibox}
+
+\begin{ibox}
+    \tit{Adjungierte Darstellung}
+    Für abelsche Lie-Algebren nicht irreduzibel.\\ 
+    Ad:G$\rightarrow$GL($\eck{g})$, $Ad(g)X$=$gXg^{-1}$\\
+    adju. auf $\eck{g}$: ad=$Ad_*$; ad(X)Y= $\frac{d}{dt}|_{t=0}e(tX)Ye(-tX)$=[X,Y]\\
+    ad$:\eck{g}\rightarrow \text{ad}(\eck{g})$ ein Lie Algebra Isomorphismus:\\ ad$[x,y]=[\text{ad} x, \text{ad} y] \;\forall x,y\in\eck{g}$
+\end{ibox}
+
+\begin{ibox}
+    \tit{Zsmh, $\rho$, $\rho_*$, $\tau$ \hfill \pu{zsmh}}
+    \pu{SO, SU,(SU(2)einf.), U, SL}\\
+    O(n) hat 2, O(1,3) 4 Zsmhkomp.\\
+    $\rho:G\rightarrow GL(V)$, für $X\in\eck{g}$\\
+    $\rho_*=\frac{d}{dt}\rho(e(tX))|_{t=0}\in \eck{gl}(V)$\\
+    G zsmh.$\Rightarrow \rho$ eind. durch $\rho_*$\textcolor{green}{\smiley}\\
+    G einf zsmh$\Rightarrow\forall\tau\exists\rho:\tau=\rho_*$
+    
+\end{ibox}
+
+
+
+
+\begin{cbox}
+    \sh{Darstelungstheorie SU(2)}
+\end{cbox}
+\begin{ibox}
+\tit{$\eck{so}$(3) und $\eck{su}(2)$}
+$\eck{so}(3)=$ span$_\mathbb{R}\{\Omega_j|j=1,2,3\}$, $\Omega_j=\frac{d}{d\theta}R(e_j,\theta)|_{\theta=0}$:\\
+{\footnotesize
+$SO(3)=\{R(\vec n, \theta)=e^{\theta\vec n\cdot\vec\Omega}| \norm{\vec n}=1\}$\\
+}
+$\eck{su}(2)=$ span$_\mathbb{R}\{-\frac{i}{2}\sigma_j|j=1,2,3\}$: 
+{\footnotesize
+$SU(2)=\{A(\vec n, \theta)=e^{-\frac{i}{2}\theta\vec n\cdot\vec\sigma}|\norm{\vec n}=1\}$
+}
+$e^{i\vec\theta n\cdot\vec\sigma}=\cos(\theta)\mathbbm{1}_{2\times 2}+\sin(\theta)i\vec n\cdot\vec\sigma$
+
+\end{ibox}
+
+\begin{ibox}
+    \tit{Bestimmen irreps von SU(2)}
+    \textbf{Vorgehen}: SU(2) einf. zusammenhängend\textcolor{green}{\smiley} $\Rightarrow$ betrachten $\eck{su}$(2) $\Rightarrow$ komplexifizieren zu $\eck{sl}(2,\mathbb{C}$) $\Leftrightarrow$ da irreps von $\eck{sl}(2,\mathbb{C}$) $\tau_\mathbb{C}|_{\eck{su}(2)}=\tau$ (irreps von $\eck{su}(2)$)
+\end{ibox}
+
+\begin{ibox}
+    \tit{Bestimmen irreps $\eck{sl}(2,\mathbb{C}$)}
+    \textbullet Basis von $\eck{sl}(2,\mathbb{C}$) als $\mathbb{C}$-VR ist 
+    $h=\big(\begin{smallmatrix}
+    1 & 0\\
+    0 & -1
+    \end{smallmatrix}\big)$ $e = \big(\begin{smallmatrix}
+    0 & 1\\
+    0 & 0
+    \end{smallmatrix}\big)$ $f=\big(\begin{smallmatrix}
+    0 & 0\\
+    1 & 0
+    \end{smallmatrix}\big)$\\
+    $[h,e]=2e, [h,f]=-2f, [e,f]=h$ \\
+    \tit{Leiteroperatoren}
+    \textbullet H=$\tau(h)$,E=$\tau(e)$,F=$\tau(f)$\\
+    \textbullet [H,E]=2E, [H,F]=-2F, [E,F]=H\\
+    \textbullet $v_0$ (\re{primitiv} mit Gewicht $\lambda$) EV von H mit EW $\lambda$ grösster Realteil$\Rightarrow Hv_0=\lambda v_0$ und E$v_0$=0, $v_k=F^kv_0$\\
+    $\Rightarrow H v_k=(\lambda-2k)v_k$\\$E v_k=k(\lambda -k + 1)v_{k-1}$\\
+\end{ibox}
+
+\begin{ibox}
+    \tit{Zusammenführung zu Irreps von SU(2)}
+    \begin{minipage}{0.5\linewidth}
+        \smaller{$Hv_k=(n-2k)v_k$\\
+        $Ev_k$=k(n-k+1)$v_{k-1}$}\\
+        $Fv_k=v_{k+1}$
+    \end{minipage}
+    \bigg\}
+    \begin{minipage}{0.4\linewidth}
+        definieren irreps $\tau_n$
+    \end{minipage}
+    $\tau_n:\eck{sl}(2,\mathbb{C})\rightarrow\eck{gl}(\mathbb{C}^{n+1})$
+    \textcolor{red}{$\Rightarrow$} jede komplexe (n+1) dim irrep von $\eck{sl}(2,\mathbb{C})$ ist isom. zu $\tau_n$\\
+    $\Rightarrow$ SU(2) hat für \re{jede} Dim irrep\\
+    \hi{hom. Polynome in $\mathbb{C}^2$=$\{(z_1,z_2)\}$}\\
+    $U_n$=$\sum_{j=0}^na_jz_1^jz_2^{n-j}$\\
+    $\rho_n:SL(2,\mathbb{C})\rightarrow GL(U_n)\\ (\rho_n(A)p)(z)=p(A^{-1}z)$\\
+    \textbf{\textcolor{red}{{$\Rightarrow$}}} $(\rho_n)_\star=\tau_n$ und $\mathbb{C}^{n+1}=U_n$
+\end{ibox}
+
+\begin{ibox}
+    \tit{Zusammenfassend}
+    SU(2) hat irreps für dim $n+1=1,2,3,\dots$, Spin $=0,\frac{1}{2},1,\dots$\\
+    SO(3) hat irreps für dim $n+1=1,3,5,\dots$, Spin $=0,1,2,\dots$ also  nur für \re{ungerade} (also für n gerade) dim. eine irrep\\
+\end{ibox}
+\begin{ibox}
+    \tit{Zerlegung von $\eck{su}(2)$-Darst.}
+    $\tau\negmedspace:\negmedspace\eck{sl}(2,\C)\negthickspace\rightarrow\negthickspace\eck{gl}(V), \tau(X) = ...$\\
+    
+    für $\eck{su}(2)$-Darst. kann man $H:=-i\tau(ih)$ setzen, sd $ih\in\eck{su}(2)$.\\
+    
+    SU(2) komp. $\rightsquigarrow$ Zerl. in irreps:\\
+    $V=V_{n_1}^{(1)}\oplus\cdots\oplus V_{n_l}^{(l)}$,\\ $\tau_{n_j}:\eck{sl}(2,\C)\rightarrow\eck{gl}(V_{n_j}^{(j)})$ \\der $(n_j+1)$-dim irrep.
+    Jeder irrep $\tau_{n_j}$ hat ein primitiven $v_0^{(j)}$
+    ($Ev_0^{(j)}=0, Hv_0^{(j)}= n_jv_0^{(j)}$)\\ 
+    $\Rightarrow$ jeder $v_0^{(j)}$ gibt ein irrep und sein EW+1 die Dimension.
+    
+    
+\end{ibox}
+
+\begin{ibox}
+    \small
+    \tit{Zerlegung von $SU(2)$-Darst.}
+    über $\eck{su}(2)$ oder: Sei $U\in SU(2)$\\
+    $\exists S\in U(2)$ sd $U=S  \big(\begin{smallmatrix}
+    e^{i\theta} & 0\\
+    0 & e^{-i\theta}
+    \end{smallmatrix}\big) S^*$ \\
+    Sei $\rho_n$ Spin-$\frac{n}{2}$, dann $\chi_n(U)\eq\chi_n(\Theta)$\\
+    Sei $\{p_0,..p_n\}(p_k=z_1^kz_2^{n-k})\subset U_n$ Basis \\und $U\eq \big(\begin{smallmatrix}
+    \alpha & \beta\\
+    -\overline{\beta} & \overline{\alpha}
+    \end{smallmatrix}\big)\in SU(2)$, $\abs{\alpha}^2+\abs{\beta}^2\eq 1$: \\
+    $\rho_n(U)p_k(z) \overset{Def}{=} p_k(U^*z)\eq...\\
+    \Rightarrow \rho_n(\Theta)p_k(z) = e^{i(n-2k)\theta}p_k(z)$\\
+    Letztendlich Charakter der irreps:\\
+    $\chi_n(U)\eq\chi_n(\Theta)=\sum_{k=0}^n e^{i(n-2k)\theta}$ \\
+    also $\chi_\rho(\Theta)$ in $\chi_n(\Theta)'$s zerlegen.
+
+\end{ibox}
+\begin{ibox}
+    \tit{Physik-Notation}
+    $J_k\eq\hbar\tau_n(i(-\frac{i}{2}\sigma_k))\Rightarrow J_z\eq J_3\eq \frac{\hbar}{2}H$, \\
+    $J_+\eq J_1+iJ_2\eq\hbar E$, $J_-\eq J_1-i J_2\eq\hbar F$\\
+    $v_k:=\ket{j,m}$, wo $j\eq\frac{n}{2}$, $m\eq\frac{n}{2}-k\eq-j,..,j$
+    {\small
+    \begin{cases}
+    $J_z\ket{j,m}\eq\hbar m\ket{j,m}$\\
+    $J_+\ket{j,m}\eq\hbar\sqrt{(j-m)(j+m+1)}\ket{j,m+1}$\\
+    $J_-\ket{j,m}\eq\hbar\sqrt{(j+m)(j-m+1)}\ket{j,m-1}$
+    \end{cases}
+    }
+    $J^2:= J_x^2+J_y^2+J_z^2=\hbar^2j(j+1)\\
+    \Rightarrow \ket{j,m}$ EV von $J^2$ und $J_z, [J^2,J_z]\eq0$\\
+    
+\end{ibox}
+\begin{ibox}
+\small
+    \tit{Zerl. von TP. von SU(2) Darst.}
+    $\rho:=\rho_{n'}\otimes\rho_{n''}$, \\ $\tau:=\rho_*\eq(\rho_{n'})_*\otimes\mathbbm{1}+\mathbbm{1}\otimes(\rho_{n''})_*$\\
+    \hi{EV von $H=\tau(h)=(H'\otimes\mathbbm{1}+\mathbbm{1}\otimes H'')$:}\\
+    $v_j'\otimes v_{l-j}''$, für $l=0,1,..,n'+n''$\\ zum EW $n'+n''-2l$\\
+    \hi{davon EV im Ker(E):}\\
+    Ansatz: $w_l = \sum_{j=0}^la_jv_j'\otimes v_{l-j}''$ \\
+    $\rightsquigarrow a_j\eq(-1)^j\frac{(n'-j)!(n''-l+j)!}{j!(l-j)!}$\\
+    $\rightsquigarrow$ für $l=0,1,..,$min$(n',n'')$ ist $w_l$ primitiv und span$\{w_l,..,F^{n'+n''-2l}w_l\}$ irreduzibler UR (gibt \textbf{alle} irreps).
+\end{ibox}
+\begin{ibox}
+    \tit{Clebsch-Gordan Zerlegung }
+    $\rho_{n'}\otimes\rho_{n''}=\rho_{n'+n''}\oplus\rho_{n'+n''-2}\oplus\cdots\oplus\rho_{\abs{n'-m''}}$     ($\mathbb{C}^{n+1} \cong V_n$ verwendet) \\
+    \textbf{Weiteres:} $\green{S^2V_n}\oplus\re{\Lambda^2V_n}\eq V_n\otimes V_n\eq \green{V_{2n}}\oplus\re{V_{2n-2}}\oplus \green{V_{2n-4}}\oplus\dots$, \\
+    $S^rV_n\simeq (S^{r-1}V_n)\otimes V_n$
+\end{ibox}
+\begin{cbox}
+    \sh{Wichtige Zusammenhänge}
+\end{cbox}
+
+\begin{ibox}
+\tit{Explizite Gruppen und Algebren}
+$\eck{u}(2)\eq\{(\begin{smallmatrix}
+    ic & -b+ia\\
+    b+ia & id \\
+    \end{smallmatrix})|a,b,c,d\negthinspace\in\negthinspace \R\}$\\
+$\eck{sp}(2,\C)\eq\{(\begin{smallmatrix}
+    \alpha & \beta\\
+    \gamma & -\alpha \\
+    \end{smallmatrix})|\alpha,\beta,\gamma\negthinspace\in\negthinspace \C\}\simeq\eck{sl}(2,\C)$
+\end{ibox}
+\begin{ibox}
+    \tit{Matrixmultiplikation}
+    \textbullet $(A\cdot B)_{ij}=\sum_{k=1}^nA_{ik}B_{kj}$ \\
+    \textbullet $(A\cdot B\cdot C)_{ij}=\sum_{k,l=1}^nA_{ik}B_{kl}C_{lj}$\\
+    \textbullet $(A\cdot v)_i=\sum_{k=1}^nA_{ik}v_k$\\
+    \textbullet $A\cdot e_i=\sum_{k=1}^nA_{ki}e_k$\\
+    \textbullet $ A^{-1} = \frac{adj(A)}{det(A)}, adj(A) = \big(\begin{smallmatrix}
+    d & -b \\
+    -c & a\\
+    \end{smallmatrix}\big)$
+\end{ibox}
+\begin{ibox}
+    \tit{Isomorphismus}
+    \textbullet $\phi: A \rightarrow B$ ist ein Homomorphismus mit Ker($\phi$)={0} (injektiv) und dim(A)=dim(B) (surjektiv)\\
+    \textbullet bildet Basiselemente auf Basiselemente ab
+\end{ibox}
+\begin{ibox}
+Urbild einer abgeschlossenen Menge unter einer stetigen Funktion ist abgeschlossen
+\end{ibox}
+\begin{ibox}
+    \textbullet G abelsch$\Rightarrow$alle irreps 1dim \& alle Konj.kl. nur ein Element\\
+    \textbullet Konj.kl. von $S_n$ selbe Anzhal an Zyklen der Länge l\\
+    \textbullet Gruppe endlich $\Rightarrow$ $\rho$ unitär\\
+    \textbullet $\rho$ unitär und V,W inv. UR und $dim(V)+dim(W)=dim(\rho)$ $\Rightarrow$ V ist orth. Komplement von W und $V \oplus W $ ergibt $ \rho$\\
+    \textbullet $(\chi_\rho,\chi_\rho)=k\Rightarrow$ $\rho$ hat genau 2 irreduzible Unterdarst.\\
+    \textbullet Bei endlichen Gruppen gilt: $\Rightarrow \rho$ ist unitär; $\Rightarrow$ \hi{endl.dim komplexe $\rho$} sind vollständig reduzibel\\
+\end{ibox}
+
+\begin{ibox}
+    \tit{Tensorprodukt Zeug}
+        \textbullet $h: V \cross W \rightarrow Z$ bilinear$\\
+    \Rightarrow \exists!\,H\negthinspace:\negthinspace V \otimes W \rightarrow Z$ linear, \\
+    mit $H(v \otimes w) = h(v,w)$ \\
+        \textbullet $(\lambda_1v_1+\lambda_2v_2)\otimes w = \lambda_1(v_1\otimes w) + \lambda_2(v_2\otimes w)$, analog im 2. Argument\\
+    \textbullet $(\alpha v)\otimes w=v\otimes(\alpha w) = \alpha(v\otimes w)$\\
+    \textbullet $U,U',V,V'$ VR, $\beta_U, \beta_{U'}, \beta_V, \beta_{V'}$ Basen\\$\beta_U\otimes\beta_V\eq\{u_1\otimes v_1,..,u_1\otimes v_n,..,u_m\otimes v_1,.., u_m\otimes v_n\}$, $\beta_{U'}\otimes\beta_{V'}$ analog.\\
+    $A:= [T]_{\beta_{U'}}^{\beta_U}\in M_{m'\times m}(K)$, \\ $B:=[S]_{\beta_{V'}}^{\beta_V}\in M_{n'\times n}(K)$
+    \\
+    $
+    \Rightarrow [T\otimes S]_{\beta_{U'}\otimes\beta_{V'}}^{\beta_{U}\otimes\beta_{V}} \eq
+    \bigg(\begin{smallmatrix}
+        A_{11}B & .. & A_{1m}B \\
+        \vdots & \ddots & \vdots \\
+        A_{m'1}B & .. & A_{m'm}B \\
+    \end{smallmatrix}\bigg)
+    $, 
+    \\
+    \textbullet \green{$tr(\Phi\otimes\Psi)=tr(\Psi)tr(\Psi)$}\\
+
+        
+\end{ibox}
+
+
+\begin{ibox}
+\tit{Wichtige Reihen}
+$\sin{x} = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2 n+1) !} x^{2 n+1}$\\
+$\cos{x} = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2 n) !} x^{2 n}$
+\end{ibox}
+
+\begin{ibox}
+\tit{Jordannormalform}
+$J_{\lambda,n}\eq\bigg(\begin{smallmatrix}
+        \lambda & 1 & \, & \, \\
+        \, & \ddots & \ddots & \, \\
+        \, & \, & \ddots& 1\\
+        \, & \, & \,&\lambda \\
+    \end{smallmatrix}\bigg)$, $e^{tJ_{\lambda,n}}\eq e^{t\lambda}\bigg(\begin{smallmatrix}
+    1 & t & t^2/2 \\
+    \, & \ddots & t \\
+    \, & \, & 1 \\
+    \end{smallmatrix}\bigg)$\\
+    $\forall A\negthinspace\in\negthinspace M_n(\C)\exists P\in GL_n(\C)$ sd $A\eq PJP^{-1}$\\
+    $\rightsquigarrow e^A\eq P^{-1}\bigg(\begin{smallmatrix}
+    e^{J_{\lambda_1,n_1}} & \, & \, \\
+    \, & \ddots & \, \\
+    \, & \, & e^{J_{\lambda_l,n_l}} \\
+    \end{smallmatrix}\bigg)P$
+\end{ibox}
+
+\begin{ibox}
+\tit{Spektralsatz}
+$A\negthinspace\in\negthinspace M_n(\C): A\text{ u-diagbar}\Leftrightarrow A^*A=AA^*$\\
+$A\negthinspace\in\negthinspace M_n(\R): A\text{ o-diagbar}\Leftrightarrow A^T=A$\\
+
+\tit{Schur-Zerlegung}
+$A\in M(n,\mathbb{F})$ trigbar $\Rightarrow \exists O\negthinspace\in\negthinspace O(n)$ bzw. $O\negthinspace\in\negthinspace U(n)$, sd $O^*AO\eq(\begin{smallmatrix}
+    \ddots & \star \\
+    \; & \ddots \\
+    \end{smallmatrix})$
+\end{ibox}
+
+\begin{ibox}
+\tit{exp: $\eck{g}\rightarrow G$ surjektiv?}
+\textbullet exp: $\eck{sl}(n,\mathbb{F})$ nein ($\nexists A\negthinspace\in\negthinspace\eck{sl}(2,\C)$ sd $e^A\eq$ diag$(b,b^{-1})$ für $b<0$ als Bsp)\\
+\textbullet exp: $\eck{gl}(n,\C)$ ja, exp: $\eck{gl}(n,\R)$ nein\\ ($\forall X\negthinspace\in\negthinspace\eck{gl}(n,\R): \text{det}(X)>0)$\\
+\textbullet exp: $\eck{so}(n)$ ja, exp: $\eck{o}(n)$ nein \\($\exists U\in O(n)$ sd det$(U)\eq-1$)\\
+\textbullet exp: $\eck{u}(n)$, $\eck{su}(n)$ ja (Spektralsatz)\\
+\textbullet exp: $\eck{sp}(2n,\R)$ nein, exp:$\eck{sp}(2n,\C)$ vl.
+\end{ibox}
+
+
+
+\begin{ibox}
+\tit{Gruppeneigenschaften zeigen:}
+\textbullet Abgeschlossenheit bezg. Verknüpfung\\
+\textbullet Neutrales Element (nicht leer)\\
+\textbullet Assoziativität\\
+\textbullet Inverses Element \\
+\textbf{Bei Untergruppe}:\\
+\textbullet Zeigen, dass die Menge tatsächlich Teilmenge der Gruppe ist $\rightarrow$ Assoziativität folgt daraus\\
+\textbullet Abgeschlossenheit bezg. Verknüpfung\\
+\textbullet Inverses Element \\
+\textbullet \re{Topologische} Abgeschlossenheit zeigen
+\end{ibox}
+
+\end{multicols*}
+
+\end{document}
